@@ -7,7 +7,7 @@ class Library {
         int releaseDate = 2010;
         int pages = 296;
         String publisher = "Greg";
-        String isbn = "9788373271890";
+        String isbn = "12345678901";
 
         System.out.println(appName);
         System.out.println("Książki dostępne w bibliotece:");
