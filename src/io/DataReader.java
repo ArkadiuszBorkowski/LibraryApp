@@ -8,67 +8,55 @@ import java.util.Scanner;
 
 public class DataReader {
     private Scanner sc = new Scanner(System.in);
+    private ConsolePrinter printer;
 
-    public void close(){
+    public DataReader(ConsolePrinter printer) {
+        this.printer = printer;
+    }
+
+    public void close() {
         sc.close();
     }
 
+    public int getInt() {
+        try {
+            return sc.nextInt();
+        } finally {
+            sc.nextLine();
+        }
+    }
+
     public Book readAndCreateBook() {
-        System.out.println("Tytuł");
+        printer.printLine("Tytuł: ");
         String title = sc.nextLine();
-
-        System.out.println("Autor");
+        printer.printLine("Autor: ");
         String author = sc.nextLine();
-
-        System.out.println("Wydawnictwo");
+        printer.printLine("Wydawnictwo: ");
         String publisher = sc.nextLine();
-
-        System.out.println("ISBN");
+        printer.printLine("ISBN: ");
         String isbn = sc.nextLine();
-
-        System.out.println("Rok wydania");
+        printer.printLine("Rok wydania: ");
         int releaseDate = getInt();
-
-        System.out.println("Ilość stron");
+        printer.printLine("Ilość stron: ");
         int pages = getInt();
 
         return new Book(title, author, releaseDate, pages, publisher, isbn);
     }
 
     public Magazine readAndCreateMagazine() {
-        System.out.println("Tytuł");
+        printer.printLine("Tytuł: ");
         String title = sc.nextLine();
-
-        System.out.println("Wydawnictwo");
+        printer.printLine("Wydawnictwo: ");
         String publisher = sc.nextLine();
-
-        System.out.println("Język");
+        printer.printLine("Język: ");
         String language = sc.nextLine();
-
-        System.out.println("Rok wydania");
+        printer.printLine("Rok wydania: ");
         int year = getInt();
-
-        System.out.println("Miesiąc");
+        printer.printLine("Miesiąc: ");
         int month = getInt();
-
-        System.out.println("Dzień");
+        printer.printLine("Dzień: ");
         int day = getInt();
-
-
-        System.out.println("Ilość stron");
-        int pages = sc.nextInt();
-        sc.nextLine();
 
         return new Magazine(title, publisher, language, year, month, day);
     }
-
-
-
-
-    public int getInt() {
-        int number = sc.nextInt();
-        sc.nextLine();
-        return number;
-    }
-
 }
