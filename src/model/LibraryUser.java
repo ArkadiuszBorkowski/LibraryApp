@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-class LibraryUser extends User {
+public class LibraryUser extends User {
      private List<Publication> publicationHistory = new ArrayList<>();
      private List<Publication> borrowedPublications = new ArrayList<>();
 
