@@ -1,57 +1,58 @@
 package model;
 
+import exception.PublicationAlreadyExistsException;
+import exception.UserAlreadyExistsException;
+
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Library implements Serializable {
 
-    private static final int INITIAL_CAPACITY = 1;
-    private int publicationsNumber;
-    private Publication[] publications = new Publication[INITIAL_CAPACITY];
+    //private static final int INITIAL_CAPACITY = 1;
+    //private int publicationsNumber;
 
-    public Publication[] getPublications() {
-        Publication[] result = new Publication[publicationsNumber];
-        for (int i = 0; i < publicationsNumber; i++) {
-            result[i] = publications[i];
-        }
-        return result;
+    //zmieniony typ z private Publication[] publications = new Publication[INITIAL_CAPACITY];
+    private Map<String, Publication> publications = new HashMap<>();
+    private Map<String, LibraryUser> users = new HashMap<>();
+
+    //zmieniony typ zwracany
+    public Map<String, Publication> getPublications() {
+        return publications;
     }
 
-/*    public void addBook(Book book) {
-        addPublication(book);
+    //dodany getter
+    public Map<String, LibraryUser> getUsers() {
+        return users;
     }
 
-    public void addMagazine(Magazine magazine) {
-        addPublication(magazine);
-    }*/
 
+    //dodana metoda i rzucany nowy typ wyjątku
+    public void addUser(LibraryUser user) {
+        if(users.containsKey(user.getPesel()))
+            throw new UserAlreadyExistsException(
+                    "Użytkownik ze wskazanym peselem już istnieje " + user.getPesel()
+            );
+        users.put(user.getPesel(), user);
+    }
+
+    //zmieniona logika
     public void addPublication(Publication publication) {
-//        if (publicationsNumber >= INITIAL_CAPACITY) {
-//            throw new ArrayIndexOutOfBoundsException("Max publications exceeded " + INITIAL_CAPACITY);
-        if (publicationsNumber >= publications.length) {
-            Arrays.copyOf(publications, publications.length * 2);
-        }
-        publications[publicationsNumber] = publication;
-        publicationsNumber++;
+        if(publications.containsKey(publication.getTitle()))
+            throw new PublicationAlreadyExistsException(
+                    "Publikacja o takim tytule już istnieje " + publication.getTitle()
+            );
+        publications.put(publication.getTitle(), publication);
     }
 
-    public boolean removePublication(Publication pub) {
-        final int NOT_FOUND  = -1;
-        int found = NOT_FOUND ;
-        int i = 0;
-        while (i < publicationsNumber && found == NOT_FOUND ) {
-            if (pub.equals(publications[i])) {
-                found = i;
-            } else {
-                i++;
-            }
+    //zmieniona logika
+    public boolean removePublication(Publication publication) {
+        if(publications.containsValue(publication)) {
+            publications.remove(publication.getTitle());
+            return true;
+        } else {
+            return false;
         }
-        if (found != NOT_FOUND) {
-            System.arraycopy(publications, found + 1, publications, found, publications.length - found - 1);
-            publicationsNumber--;
-            publications[publicationsNumber] = null;
-        }
-
-        return found != NOT_FOUND;
     }
 }
