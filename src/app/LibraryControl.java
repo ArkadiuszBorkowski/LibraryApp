@@ -62,6 +62,12 @@ class LibraryControl {
                 case EXIT:
                     exit();
                     break;
+                case ADD_USER: //dodano
+                    addUser();
+                    break;
+                case PRINT_USERS: //dodano
+                    printUsers();
+                    break;
                 default:
                     printer.printLine("Nie ma takiej opcji, wprowadź ponownie: ");
             }

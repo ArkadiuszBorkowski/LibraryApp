@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Publication implements Serializable, Comparable<Publication> {
+public abstract class Publication implements Serializable, Comparable<Publication>, CsvConvertible {
     private int year;
     private String title;
     private String publisher;
@@ -63,5 +63,5 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
         return Objects.hash(year, title, publisher);
     }
 
-    public abstract String toCsv();
+    //public abstract String toCsv();
 }

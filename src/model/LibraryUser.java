@@ -12,6 +12,12 @@ public class LibraryUser extends User {
          super(firstName, lastName, pesel);
      }
 
+    @Override
+    public String toCsv() {
+        return getFirstName() + ";" + getLastName() + ";" + getPesel();
+    }
+
+
     public List<Publication> getPublicationHistory() {
         return publicationHistory;
     }
