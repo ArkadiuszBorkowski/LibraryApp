@@ -133,11 +133,17 @@ class LibraryControl {
         }
     }
 
+    private void printBooks() {
+        printer.printBooks(library.getSortedPublications(
+                (p1, p2) -> p1.getTitle().compareToIgnoreCase(p2.getTitle())
+        ));
+    }
 
     //zmiana logiki
-    private void printBooks() {
-        printer.printBooks(library.getPublications().values());
-    }
+//    private void printBooks() {
+//        printer.printBooks(library.getPublications().values());
+//    }
+
     /*private void printBooks() {
         //Publication[] publications = library.getPublications();
         Publication[] publications = getSortedPublications();
@@ -149,6 +155,8 @@ class LibraryControl {
         Arrays.sort(publications, new AlphabeticalTitleComparator());
         return publications;
     }*/
+
+
     private void addMagazine() {
         try {
             Magazine magazine = dataReader.readAndCreateMagazine();
@@ -173,13 +181,24 @@ class LibraryControl {
         }
     }
 
-    //zmiana logiki
     private void printMagazines() {
-        printer.printMagazines(library.getSortedPublications(new AlphabeticalTitleComparator()));
+        printer.printMagazines(library.getSortedPublications(
+                (p1, p2) -> p1.getTitle().compareToIgnoreCase(p2.getTitle())
+        ));
     }
+
+
+    //zmiana 03
+//    private void printMagazines() {
+//        printer.printMagazines(library.getSortedPublications(new AlphabeticalTitleComparator()));
+//    }
+
+    //zmiana 02
     //private void printMagazines() {
     //        printer.printMagazines(library.getPublications().values());
     //    }
+
+    //zmiana 01.
     /*private void printMagazines() {
         Publication[] publications = library.getPublications();
         Publication[] publications = getSortedPublications();
@@ -188,6 +207,14 @@ class LibraryControl {
 
     //dodano
     private void printUsers() {
+        printer.printUsers(library.getSortedUsers(
+                (p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName())
+        ));
+    }
+
+/*
+zamieniono na wyrażenie lambda
+    private void printUsers() {
         printer.printUsers(library.getSortedUsers(new Comparator<LibraryUser>() {
             @Override
             public int compare(LibraryUser p1, LibraryUser p2) {
@@ -195,6 +222,7 @@ class LibraryControl {
             }
         }));
     }
+*/
 
     private void exit() {
         try {
